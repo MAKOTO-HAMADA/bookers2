@@ -1,0 +1,48 @@
+<p id="notice"></p> 
+
+<div class="container px-5 px-sm-0">
+  
+  <% if @book_new.errors.any? %>
+    <%= @book_new.errors.count %>errors prohibited this obj from being saved:
+    <ul>
+      <% @book_new.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  
+  <div class="row">
+    
+    <!-- 左側 -->
+    <div class="col-md-3">
+      <%= render 'books/list_userinfo', list: @user_currentuser %>
+      <%= render 'books/list_newbook', list: @book_new %>
+    </div>
+    
+    <!-- 右側 -->
+    <!-- 投稿者のプロフ画像を表示させるところが未完成-->
+    <div class="col-md-8 offset-md-1">
+      <h2>Users</h2>
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th>image</th>
+            <th>name</th>
+            <th></th> <!-- Showリンクを入れる為の箱 -->
+          </tr>
+        </thead>
+        
+        <% @users.each do |user|%>
+          <tbody>
+            <td><%= image_tag user.get_profile_image(100,100) %></td>
+            <td><%= user.name %></td>
+            <td><%= link_to 'Show', user_path(user.id) %></td>
+          </tbody>
+          <tfoot></tfoot>
+        <% end %>
+      </table>
+    </div>
+  </div>
+  
+</div>
+ 

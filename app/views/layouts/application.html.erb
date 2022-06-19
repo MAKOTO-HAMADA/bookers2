@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
+    <!--書き換え [24章. 6/13]-->
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <!-- _link_tag の場合、cssファイルは app/assets     配下のファイルを参照-->
+    <!-- _pack_tag の場合、JavaScriptは  app/javascript 配下のファイルを参照-->
+    
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/dd5d20e8ab.js" crossorigin="anonymous"></script>
+  </head>
+  
+  <!-- ヘッダー-->
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container">
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <a class="navbar-brand" href="/"><span>Bookers</span></a>
+              <ul class="navbar-nav ml-auto">
+                <% if user_signed_in? %>
+                    
+                    
+                  <!-- ログイン時 -->
+                  <li>
+                    <%= link_to user_path(current_user.id), class: "nav-link text-light" do %>
+                      <i class="fas fa-home"></i>
+                      Homes
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to users_path, class: "nav-link text-light" do %>
+                      <i class="fas fa-users"></i>
+                      Users
+                    <% end %>
+                  </li><li>
+                    <%= link_to books_path, class: "nav-link text-light" do %>
+                      <i class="fas fa-book-open"></i>
+                      Books
+                    <% end %>
+                  </li><li>
+                    <%= link_to destroy_user_session_path, method: :delete, class: "nav-link text-light" do %>
+                      <i class="fas fa-sign-out-alt"></i>
+                      Log out
+                    <% end %>
+                  </li>
+                  
+                  <!-- ログアウト時-->
+                  <% else %>
+                  <li><a class="nav-link text-light" href="/"><i class="fas fa-home"></i> Home</a></li>
+                  <li>
+                    <%= link_to about_path, class: "nav-link text-light" do %>  <!-- 名前をここで記述しない！-->
+                      <i class="fas fa-link"></i> <!-- アイコン -->
+                      About                       <!-- 文字列 -->
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to new_user_registration_path, class: "nav-link text-light" do %>
+                      <i class="fas fa-user-plus"></i>
+                      Sign up
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to new_user_session_path, class: "nav-link text-light" do %>
+                      <i class="fas fa-sign-in-alt"></i>
+                      Log in
+                    <% end %>
+                  </li>
+                  
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </nav>
+    </header>
+    
+    <!-- メイン -->
+    <main>
+      <p id="notice"></p>
+      <%= yield %>
+    </main>
+    
+    <!-- フッター -->
+    <footer>
+      <div class="container mt-5">
+        <div class="row">
+          <div class="mx-auto"> <!-- mx-autoはDeviseのヘルパーメソッド？-->
+          <p>CopyRight Infratop.inc</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+
+ <!---->

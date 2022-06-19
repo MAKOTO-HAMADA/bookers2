@@ -1,0 +1,42 @@
+<p id="notice"><%= flash[:notice] %></p>
+
+<!-- コンテナ全体 -->
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    
+    <!-- 左側 -->
+    <div class="col-md-3">
+      <%= render 'books/list_userinfo', list: @user%>
+      <%= render 'books/list_newbook', list:  @book_new %>
+    </div>
+    
+    <!-- 右側 -->
+    <div class="col-md-8 offset-md-1">
+      <h2>Books</h2>
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Opinion</th>
+          </tr>
+        </thead>
+        
+        <% @books.each do |book|%>
+          <tbody>
+            <td>
+              <%= link_to user_path(@user.id) do %>
+                <%= image_tag @user.get_profile_image(100,100) %>
+              <% end %>
+            </td>
+            <td><%= link_to book.title, book_path(book.id) %></td>
+            <td><%= book.body %></td>
+          </tbody>
+          <tfoot></tfoot>
+        <% end %>
+      </table>
+      
+    </div>
+    
+  </div>
+</div>

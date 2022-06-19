@@ -1,0 +1,51 @@
+<div class="container px-5 px-sm-0">
+  
+  <!-- index内用の、空白投稿エラー出力分 -->
+  <% if @book_new.errors.any? %>
+    <%= @book_new.errors.count %>errors prohibited this obj from being saved:
+    <ul>
+      <% @book_new.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  
+  <div class="row">
+    
+    <!-- 左側全体 -->
+    <div class="col-md-3">
+      <%= render 'list_userinfo', list: @book_currentuser %>
+      <%= render 'list_newbook',  list: @book_new %>
+    </div>
+    
+    <!-- 右側 -->
+    <!-- 投稿者のプロフ画像を表示させるところが未完成-->
+    <div class="col-md-8 offset-md-1">
+      <h2>Books</h2>
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th></th> <!-- 投稿したユーザーのプロフ画像用の空白 -->
+            <th>Title</th>
+            <th>Opinion</th>
+          </tr>
+        </thead>
+        
+        <% @books.each do |book|%>
+          <tbody>
+            <td>
+              <%= link_to user_path(book.id) do %>
+                <%= image_tag book.user.get_profile_image(100,100) %>
+              <% end %>
+            </td> <!-- 投稿したユーザーのプロフ画像出力用のtd -->
+            <td><%= link_to book.title, book_path(book.id) %></td>
+            <td><%= book.body %></td>
+          </tbody> <!-- 全ユーザーから投稿されたtitleとopinionとuserアイコン -->
+          <tfoot></tfoot> <!-- 今回は使わないか... -->
+        <% end %>
+      </table>
+    </div>
+  </div>
+  
+</div>
+ 
